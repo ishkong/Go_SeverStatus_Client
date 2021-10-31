@@ -37,12 +37,10 @@ type WsMessage struct {
 }
 
 type TxRx struct {
-	Tx      []uint64
-	Rx      []uint64
 	TxIndex uint64
 	RxIndex uint64
-	TxLen   uint64
-	RxLen   uint64
+	Tx      []uint64
+	Rx      []uint64
 }
 
 func GetUptime() uint64 {
@@ -79,8 +77,6 @@ func GetNetInfo(IntervalTime uint16) (uint64, uint64, uint64, uint64) {
 		NetTxRx.Rx = make([]uint64, 10)
 		NetTxRx.RxIndex = 0
 		NetTxRx.TxIndex = 0
-		NetTxRx.RxLen = 0
-		NetTxRx.TxLen = 0
 	})
 	var (
 		avgRx  uint64
@@ -88,7 +84,6 @@ func GetNetInfo(IntervalTime uint16) (uint64, uint64, uint64, uint64) {
 		NetIn  uint64
 		NetOut uint64
 	)
-	avgRx, NetIn, NetOut, avgTx = 0, 0, 0, 0
 	info, _ := net.IOCounters(true)
 	for _, v := range info {
 		if find := strings.Contains(v.Name, "lo"); find {
